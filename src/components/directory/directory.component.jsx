@@ -10,8 +10,8 @@ const Directory = ({ categories }) => {
       {categories.map((category) => (
         <CategoryItem
           key={category.id}
-          category={category}
-          // categoryItemComponent={category}
+          categoryItemComponent={category}
+          // category={category}
           // id={id}
           // cta={cta}
           // imageUrl={imageUrl}
