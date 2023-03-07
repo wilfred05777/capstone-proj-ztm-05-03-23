@@ -1,8 +1,10 @@
 import React from 'react'
 import './category-item.styles.scss'
 
-const CategoryItem = ({ categoryItemComponent }) => {
-  const { id, imageUrl, title, cta } = categoryItemComponent
+// const CategoryItem = ({ categoryItemComponent }) => {
+//   const { id, imageUrl, title, cta } = categoryItemComponent
+const CategoryItem = ({ category }) => {
+  const { id, imageUrl, title, cta } = category
 
   return (
     <div className='category-container'>
