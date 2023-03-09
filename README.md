@@ -2,6 +2,7 @@
 
 ```js
 // 86. Navigation Bar Component
+// App.jsx
 import React, { useState } from 'react'
 import { Outlet, Route, Routes } from 'react-router-dom'
 
@@ -9,6 +10,7 @@ import './App.css'
 
 import Home from './routes/home/home.components'
 
+// The top level component / template
 const Navigation = () => {
   return (
     <div>
