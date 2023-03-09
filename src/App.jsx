@@ -1,9 +1,21 @@
 import React, { useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 
 import './App.css'
 
 import Home from './routes/home/home.components'
+
+// The top level component / template
+const Navigation = () => {
+  return (
+    <div>
+      <div>
+        <h1>I am the navigation</h1>
+      </div>
+      <Outlet />
+    </div>
+  )
+}
 
 const Shop = () => {
   return <h1>I am the shop page</h1>
@@ -12,14 +24,12 @@ const Shop = () => {
 function App() {
   return (
     <Routes>
-      <Route path='/home' element={<Home />}>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home />} />
+        {/* index is matching the as the base component  */}
+        {/* <Route path='/home' element={<Home />} /> */}
         <Route path='shop' element={<Shop />} />
-        {/* /home/shop */}
       </Route>
-      {/* code above - it is No longer a sibling but nested element -> Parent level add a <Outlet/> to render the nested which is /shop, because it will only render the parent level element. */}
-
-      {/* <Route path='/' element={<Home />} /> */}
-      {/* <Route path='/shop' element={<Shop />} /> */}
     </Routes>
   )
 }
