@@ -4,22 +4,8 @@ import { Outlet, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 import Home from './routes/home/home.components'
-
-// The top level component / template
-const Navigation = () => {
-  return (
-    <div>
-      <div>
-        <h1>I am the navigation</h1>
-      </div>
-      <Outlet />
-    </div>
-  )
-}
-
-const Shop = () => {
-  return <h1>I am the shop page</h1>
-}
+import Navigation from './routes/navigation/navigation.component'
+import Shop from './routes/shop/shop.component'
 
 function App() {
   return (
