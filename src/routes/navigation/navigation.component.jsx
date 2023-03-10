@@ -33,7 +33,10 @@ const Navigation = () => {
         <div className='nav-links-container'>
           {/* Link behaves like an anchor tag link in a plain html */}
           <Link className='nav-link' to={'/shop'}>
-            Shop
+            SHOP
+          </Link>
+          <Link className='nav-link' to={'/sign-in'}>
+            SIGN IN
           </Link>
         </div>
       </div>
