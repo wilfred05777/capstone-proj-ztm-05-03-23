@@ -2,6 +2,133 @@
 
 <hr>
 
+```jsx
+// 97. Sign In With Redirect
+// sign-in.component.jsx file
+// =================================================================
+/**
+ * -- Problems: with just signInWithGoogleRedirect() 
+    --- will only redirect after login but it won't record the state after comming to the /sign-In url
+    --- to fix it we need React hooks useEffect and 
+ * 
+  import React, { useEffect } from 'react'
+  import { getRedirectResult } from 'firebase/auth'
+*/
+
+/**
+ * The main thing I wanted you to know was that there are multiple ways that you can provide different providers.
+ *
+ */
+
+// side lessons for this video chapter: 97
+import React, { useEffect, useState } from 'react'
+import { getRedirectResult } from 'firebase/auth'
+
+useEffect(async () => {
+  const response = await getRedirectResult(auth)
+  // console.log(response)
+
+  if (response) {
+    const userDocRef = await createUserDocumentFromAuth(response.user)
+  }
+}, [])
+
+// [97-A] Explanation of the logGoogleRedirectUser button
+// const logGoogleRedirectUser = async () => {
+//   const { user } = await signInWithGoogleRedirect()
+//   console.log({ user })
+// }
+
+/**
+ *  BUG on console shown:
+ *  Uncaught (in promise) FirebaseError: Firebase: Error (auth/    popup-closed-by-user).   at createErrorInternal
+ *
+ */
+
+{
+  /* Explanation [97-A] */
+}
+{
+  /* <button onClick={logGoogleRedirectUser}>
+        Sign in with Google Redirect without UseEffect
+      </button> */
+}
+;<div>
+  <button onClick={signInWithGoogleRedirect}>
+    Sign in with Google Redirect with useEffect
+  </button>
+</div>
+
+//================================================================
+/**
+ * fireabse.utils.js file
+ */
+
+import {
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  GoogleAuthProvider
+} from 'firebase/auth'
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig)
+const analytics = getAnalytics(app)
+
+// sign providers like: facebook, google, twitter
+const googleProvider = new GoogleAuthProvider()
+
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+})
+
+export const auth = getAuth()
+export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider)
+
+export const db = getFirestore()
+
+export const createUserDocumentFromAuth = async (userAuth) => {
+  const userDocRef = doc(db, 'user', userAuth.uid)
+
+  console.log(userDocRef)
+
+  const userSnapshot = await getDoc(userDocRef)
+  console.log(userSnapshot)
+  console.log(userSnapshot.exists())
+
+  // if user data does not exist
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth
+    const createdAt = new Date()
+
+    try {
+      // create / set the document with the data from userAuth in my collection
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt
+      })
+      // if user data exists
+    } catch (error) {
+      console.log('error creating the user', error.message)
+    }
+  }
+
+  // return userSnapshot
+  return userDocRef
+
+  // pseudo code
+  // if user data does not exist
+  // create / set the document with the data from userAuth in my collection
+  // if user data exists
+  // return userSnapshot
+}
+```
+
+<hr>
+
 ```js
 // 88. Styling for Navigation + Logo
 // navigation.component.jsx

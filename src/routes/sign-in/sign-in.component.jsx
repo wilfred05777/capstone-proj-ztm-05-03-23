@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getRedirectResult } from 'firebase/auth'
+
 import {
+  auth,
   signInWithGooglePopup,
+  signInWithGoogleRedirect,
   createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils'
 
@@ -14,12 +18,6 @@ const SignIn = () => {
 
     // console.log(response)
   }
-
-  /**
-   *  BUG on console shown:
-   *  Uncaught (in promise) FirebaseError: Firebase: Error (auth/    popup-closed-by-user).   at createErrorInternal
-   *
-   */
 
   return (
     <div>
