@@ -4,10 +4,220 @@
 
 <hr >
 
-```jsx
+```js
 /**
- *
+ * 101. Generalizing Form Input Component
  */
+
+/**
+ * sign-up-form.component.jsx
+ **/
+import FormInput from '../form-input/form-input.component'
+
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth
+} from '../../utils/firebase/firebase.utils'
+
+const defaultFormFields = {
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
+
+const SignUpForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { displayName, email, password, confirmPassword } = formFields
+
+  console.log(formFields)
+
+  /** clears the form upon clicking the sign-up button */
+  const resetFormField = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    // challenge code here
+    if (password !== confirmPassword) {
+      alert('Passwords do not match')
+      return
+    }
+    try {
+      // const response = await createAuthUserWithEmailAndPassword(email, password)
+      // console.log(response)
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
+
+      /** display null value fixes here */
+      await createUserDocumentFromAuth(user, { displayName })
+
+      alert('Successfully signed up!')
+
+      resetFormField()
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Cannot create user, email already in use')
+      } else {
+        console.log('user creation encountered an error', error)
+      }
+    }
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    event.preventDefault()
+
+    setFormFields({ ...formFields, [name]: value })
+  }
+
+  return (
+    <div>
+      <h1>Sign up with your email and password</h1>
+
+      <form onSubmit={handleSubmit}>
+        {/* Generalizing refactor the input all input to FormInput */}
+        <FormInput
+          label='Display Name'
+          name='displayName'
+          value={displayName}
+          onChange={handleChange}
+          type='text'
+          required
+        />
+
+        <FormInput
+          label='Email'
+          name='email'
+          value={email}
+          onChange={handleChange}
+          type='email'
+          required
+        />
+
+        <FormInput
+          label='Password'
+          name='password'
+          value={password}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+
+        <FormInput
+          label='Confirm Password'
+          name='confirmPassword'
+          value={confirmPassword}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+        <button type='submit'>Sign Up</button>
+      </form>
+    </div>
+  )
+}
+
+export default SignUpForm
+
+/**
+ * form-input-component.jsx =============================================================
+ */
+import React from 'react'
+import './form-input.styles.scss'
+
+const FormInput = ({ label, ...otherProps }) => {
+  return (
+    <div className='group'>
+      <input className='form-input' {...otherProps} />
+      {label && (
+        <label
+          className={`${
+            otherProps.value.length ? 'shrink' : ''
+          } form-input-label`}
+          htmlFor='displayName'
+        >
+          {label}
+        </label>
+      )}
+
+      {/* <input className='form-input' {...otherProps} /> */}
+
+      {/* <input
+        name='displayName'
+        value={displayName}
+        onChange={changeHandler}
+        type='text'
+        required
+      /> */}
+    </div>
+  )
+}
+
+export default FormInput
+```
+
+```scss
+/**
+ * form-input-styles.scss
+ */
+$sub-color: grey;
+$main-color: black;
+
+@mixin shrinkLabel {
+  top: -14px;
+  font-size: 12px;
+  color: $main-color;
+}
+
+.group {
+  position: relative;
+  margin: 45px 0;
+
+  .form-input {
+    background: none;
+    background-color: white;
+    color: $sub-color;
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $sub-color;
+    margin: 25px 0;
+
+    &:focus {
+      outline: none;
+    }
+    /**
+     *  ~ focus/select the next sibling
+    */
+    &:focus ~ .form-input-label {
+      @include shrinkLabel();
+    }
+  }
+
+  input[type='password'] {
+    letter-spacing: 0.3em;
+  }
+
+  .form-input-label {
+    color: $sub-color;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    transition: 300ms ease all;
+
+    &.shrink {
+      @include shrinkLabel();
+    }
+  }
+}
 ```
 
 <hr >
