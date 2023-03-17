@@ -44,7 +44,11 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore()
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {} // displayName, // null value- overwrites
+  // additionalInformation = { displayName: ''}
+) => {
   // protected my code if we don't received and argument userAuth from firestore it will terminate
   if (!userAuth) return
 
@@ -64,9 +68,10 @@ export const createUserDocumentFromAuth = async (userAuth) => {
     try {
       // create / set the document with the data from userAuth in my collection
       await setDoc(userDocRef, {
-        displayName,
+        displayName, // null value- overwrites
         email,
-        createdAt
+        createdAt,
+        ...additionalInformation
       })
       // if user data exists
     } catch (error) {
