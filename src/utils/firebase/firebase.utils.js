@@ -5,9 +5,9 @@ import {
   getAuth,
   signInWithRedirect,
   signInWithPopup,
-  GoogleAuthProvider
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword
 } from 'firebase/auth'
-
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
 import { getAnalytics } from 'firebase/analytics'
@@ -45,6 +45,9 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore()
 
 export const createUserDocumentFromAuth = async (userAuth) => {
+  // protected my code if we don't received and argument userAuth from firestore it will terminate
+  if (!userAuth) return
+
   const userDocRef = doc(db, 'user', userAuth.uid)
 
   console.log(userDocRef)
@@ -79,4 +82,11 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   // create / set the document with the data from userAuth in my collection
   // if user data exists
   // return userSnapshot
+}
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  // the general idea - in between protected if there is a change between firebase methods
+  if (!email || !password) return
+
+  return await createUserWithEmailAndPassword(auth, email, password)
 }
