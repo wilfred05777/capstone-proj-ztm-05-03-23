@@ -44,6 +44,10 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore()
 
+/**
+ *  Functionality - Create User in Firestore with authentication
+ * =================================================================================================
+ */
 export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {} // displayName, // null value- overwrites
@@ -89,9 +93,23 @@ export const createUserDocumentFromAuth = async (
   // return userSnapshot
 }
 
+/**
+ *  Functionality - Create User in Firestore with authentication - End of function
+ * =================================================================================================================
+ */
+
+/**
+ *  Functionality for CreateAuth User with Email and Password in firestore
+ *  =================================================================================================================
+ */
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
   // the general idea - in between protected if there is a change between firebase methods
   if (!email || !password) return
 
   return await createUserWithEmailAndPassword(auth, email, password)
 }
+
+/**
+ *  Functionality for CreateAuth User with Email and Password in firestore - END of function
+ *  ==============================================================================
+ */
