@@ -6,6 +6,188 @@
 
 ```jsx
 /**
+ * Lesson - 103. Sign In Form - https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31147830?start=0#notes
+ */
+/* firebase.utils.js ==========================================*/
+import { signInWithEmailAndPassword } from 'firebase/auth'
+
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return
+
+  return await signInWithEmailAndPassword(auth, email, password)
+}
+/* firebase.utils.js end ==========================================*/
+
+/* sign-in-components.jsx ========================================== */
+
+import React, { useState } from 'react'
+
+import './sign-in-form.styles.scss'
+
+import FormInput from '../form-input/form-input.component'
+import Button from '../button/button.component'
+
+import {
+  createUserDocumentFromAuth,
+  signInWithGooglePopup,
+  signInAuthUserWithEmailAndPassword
+} from '../../utils/firebase/firebase.utils'
+
+const defaultFormFields = {
+  email: '',
+  password: ''
+}
+
+const SignInForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { email, password } = formFields
+
+  // console.log(formFields)
+
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup()
+    await createUserDocumentFromAuth(user)
+  }
+
+  /** clears the form upon clicking the sign-up button */
+  const resetFormField = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      const response = await signInAuthUserWithEmailAndPassword(email, password)
+      console.log(response)
+
+      resetFormField()
+    } catch (error) {
+      console.log('user creation encountered an error', error)
+    }
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    event.preventDefault()
+
+    setFormFields({ ...formFields, [name]: value })
+  }
+
+  return (
+    <div className='sign-up-container'>
+      <h2>Already have an account?</h2>
+      <span>Sign in with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label='Email'
+          name='email'
+          value={email}
+          onChange={handleChange}
+          type='email'
+          required
+        />
+
+        <FormInput
+          label='Password'
+          name='password'
+          value={password}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+        <div className='buttons-container'>
+          <Button type='submit'>Sign In</Button>
+          <Button buttonType='google' onClick={signInWithGoogle}>
+            Google sign in
+          </Button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default SignInForm
+/* sign-in-components.jsx end ===================================== */
+```
+
+```scss
+/* sign-form.styles.scss ===================================== */
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  h2 {
+    margin: 10px 0;
+  }
+
+  .button-container {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 550;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+/* sign-form.styles.scss end ===================================== */
+```
+
+```jsx
+/* rename and refactor to authentication from sign-in folder to authentication folder so as to each content
+ * routes
+      --- authentication
+        ---authentication.component.jsx
+ */
+
+/*
+ * authentication.component.jsx files' content ===========================
+ */
+import React, { useEffect, useState } from 'react'
+import { getRedirectResult } from 'firebase/auth'
+
+import {
+  auth,
+  signInWithGooglePopup,
+  signInWithGoogleRedirect,
+  createUserDocumentFromAuth
+} from '../../utils/firebase/firebase.utils'
+import SignUpForm from '../../components/sign-up-form/sign-up-form.component'
+import SignInForm from '../../components/sign-in-form/sign-in-form.component'
+
+const Authentication = () => {
+  const logGoogleUser = async () => {
+    const { user } = await signInWithGooglePopup()
+    createUserDocumentFromAuth(user)
+    const userDocRef = await createUserDocumentFromAuth(user)
+
+    // const response = await signInWithGooglePopup()
+
+    // console.log(response)
+  }
+
+  return (
+    <div>
+      <h1>Sign In Page</h1>
+      {/* <button onClick={logGoogleUser}>Sign in with Google Popup</button> */}
+      <SignInForm />
+      <SignUpForm />
+    </div>
+  )
+}
+
+export default Authentication
+```
+
+<hr>
+
+```jsx
+/**
+ * Lesson - 102. Custom Button Component - https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31141856#notes
+*/
+/**
  * button.component.jsx =================================================================
  */
 
@@ -228,7 +410,8 @@ export default SignUpForm
 
 ```js
 /**
- * 101. Generalizing Form Input Component
+ * lesson - 101. Generalizing Form Input Component - https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31139998#notes
+ *
  */
 
 /**
