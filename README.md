@@ -4,6 +4,42 @@
 
 <hr >
 
+```jsx
+/**
+    button.component.jsx
+*/
+
+/**
+ * Different types of buttons
+ *
+ * default
+ *
+ * inverted
+ *
+ * google sign in
+ */
+
+const BUTTON_TYPE_CLASS = {
+  google: 'google-sign-in',
+  inverted: 'inverted',
+  default: 'btn-default'
+}
+const Button = ({ children, buttonType, ...otherProps }) => {
+  return (
+    <>
+      <button
+        className={`button-container ${BUTTON_TYPE_CLASS[buttonType]}`}
+        {...otherProps}
+      >
+        {children}
+      </button>
+    </>
+  )
+}
+
+export default Button
+```
+
 ```js
 /**
  * 101. Generalizing Form Input Component
