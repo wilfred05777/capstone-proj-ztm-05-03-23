@@ -6,39 +6,225 @@
 
 ```jsx
 /**
-    button.component.jsx
-*/
+ * button.component.jsx =================================================================
+ */
 
+import './button.styles.scss'
 /**
- * Different types of buttons
- *
- * default
- *
- * inverted
- *
- * google sign in
- */
+ * Different types of buttons
+ *
+ * default
+ *
+ * inverted
+ *
+ * google sign in
+ */
 
-const BUTTON_TYPE_CLASS = {
-  google: 'google-sign-in',
-  inverted: 'inverted',
-  default: 'btn-default'
+const BUTTON_TYPE_CLASSES = {
+  google: 'google-sign-in',
+  inverted: 'inverted',
+  default: 'btn-default'
 }
 const Button = ({ children, buttonType, ...otherProps }) => {
-  return (
-    <>
-      <button
-        className={`button-container ${BUTTON_TYPE_CLASS[buttonType]}`}
-        {...otherProps}
-      >
-        {children}
-      </button>
-    </>
-  )
+  return (
+    <button
+      className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
+      {...otherProps}
+    >
+      {children}
+    </button>
+  )
 }
 
 export default Button
+
+/**
+ * sign-up-form.component.jsx =================================================================
+ */
+// @ts-nocheck
+import React, { useState } from 'react'
+
+import './sign-up-form.styles.scss'
+
+import FormInput from '../form-input/form-input.component'
+import Button from '../button/button.component'
+
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth
+} from '../../utils/firebase/firebase.utils'
+
+const defaultFormFields = {
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
+
+const SignUpForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { displayName, email, password, confirmPassword } = formFields
+
+  console.log(formFields)
+
+  /** clears the form upon clicking the sign-up button */
+  const resetFormField = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    // challenge code here
+    if (password !== confirmPassword) {
+      alert('Passwords do not match')
+      return
+    }
+    try {
+      // const response = await createAuthUserWithEmailAndPassword(email, password)
+      // console.log(response)
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
+
+      /** display null value fixes here */
+      await createUserDocumentFromAuth(user, { displayName })
+
+      alert('Successfully signed up!')
+
+      resetFormField()
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        alert('Cannot create user, email already in use')
+      } else {
+        console.log('user creation encountered an error', error)
+      }
+    }
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    event.preventDefault()
+
+    setFormFields({ ...formFields, [name]: value })
+  }
+
+  return (
+    <div className='sign-up-container'>
+      <h2>Don't Have an account?</h2>
+      <span>Sign up with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label='Display Name'
+          name='displayName'
+          value={displayName}
+          onChange={handleChange}
+          type='text'
+          required
+        />
+
+        <FormInput
+          label='Email'
+          name='email'
+          value={email}
+          onChange={handleChange}
+          type='email'
+          required
+        />
+
+        <FormInput
+          label='Password'
+          name='password'
+          value={password}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+
+        <FormInput
+          label='Confirm Password'
+          name='confirmPassword'
+          value={confirmPassword}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+        <Button buttonType='default' type='submit'>
+          Sign Up
+        </Button>
+        {/* <button type='submit'>Sign Up</button> */}
+      </form>
+    </div>
+  )
+}
+
+export default SignUpForm
+
 ```
+
+```scss
+/*
+  sign-up-from.styles.css
+*/
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  h2 {
+    margin: 10px 0;
+  }
+}
+/*
+  button.styles.css
+*/
+.button-container {
+  min-width: 165px;
+  width: auto;
+  height: 50px;
+  letter-spacing: 0.5px;
+  line-height: 50px;
+  padding: 0 35px 0 35px;
+  font-size: 15px;
+  background-color: black;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Open Sans Condensed';
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+
+  &:hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+  }
+
+  &.google-sign-in {
+    background-color: #4285f4;
+    color: white;
+
+    &:hover {
+      background-color: #357ae8;
+      border: none;
+    }
+  }
+
+  &.inverted {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
+  }
+}
+```
+
+<hr>
 
 ```js
 /**
