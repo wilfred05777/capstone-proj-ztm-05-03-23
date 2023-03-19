@@ -42,7 +42,26 @@ const SignInForm = () => {
 
       resetFormField()
     } catch (error) {
-      console.log('user creation encountered an error', error)
+      /*if user doesn't exists in firebase using switch statement */
+      switch (error.code) {
+        /* check if password doesn't match with the email */
+        case 'auth/wrong-password':
+          alert('wrong password for email')
+          break /* break if the case is meet the condition*/
+        /* check if inputted email and password exist if it does not exist throw and alert */
+        case 'auth/user-not-found':
+          alert('no user associated with this email address')
+          break
+        default:
+          console.log(error)
+      }
+
+      /* if password is incorrect for email using if statement */
+
+      // if (error.code === 'auth/wrong-password') {
+      //   alert('Wrong password')
+      // }
+      // console.log(error)
     }
   }
 
@@ -77,7 +96,9 @@ const SignInForm = () => {
         />
         <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
-          <Button buttonType='google' onClick={signInWithGoogle}>
+
+          {/* Note: without type='button' at <Button type="">Google Sign in<Button> upon clicking it  the <Button>Sign In</Button> will also fire and its error switch will trigger case 'auth/wrong-password':  and show alert in UI wrong passwrod for email*/}
+          <Button type='button' buttonType='google' onClick={signInWithGoogle}>
             Google sign in
           </Button>
         </div>
