@@ -2,6 +2,14 @@
 
 ================================================================
 
+```jsx
+/**
+ * 105. Need For Context - Explained- https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31147848#notes
+ */
+```
+
+- what I learn from the lecture is prop drilling component tree and components parent and children
+
 <hr >
 
 ```jsx
