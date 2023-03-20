@@ -25,7 +25,7 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields
 
   // functions are rerun using useContext hook
-  const val = useContext(UserContext)
+  // const val = useContext(UserContext)
 
   console.log('hit')
 
