@@ -1,7 +1,6 @@
 // @ts-nocheck
-import React from 'react'
 
-import { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 // Link is just like an anchor tag link in a plain html
 import { Link, Outlet } from 'react-router-dom'
 
@@ -20,11 +19,15 @@ import { Link, Outlet } from 'react-router-dom'
  */
 
 import { ReactComponent as Logo } from '../../assets/images/crown.svg'
+import { UserContext } from '../../contexts/user.context'
 
 import './navigation.styles.scss'
 
 // The top level component / template
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext)
+  console.log(currentUser)
+
   return (
     <Fragment>
       <div className='navigation'>

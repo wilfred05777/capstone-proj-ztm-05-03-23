@@ -2,6 +2,223 @@
 
 ================================================================
 
+<hr>
+
+```jsx
+/**
+ * 106. User Context - https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31150002?start=0#overview
+ */
+
+/** /src/components/sign-in-form/sign-in-form.components.jsx start======================================= **/
+// @ts-nocheck
+import React, { useState, useContext } from 'react'
+
+import './sign-in-form.styles.scss'
+
+import FormInput from '../form-input/form-input.component'
+import Button from '../button/button.component'
+
+import { UserContext } from '../../contexts/user.context'
+
+import {
+  createUserDocumentFromAuth,
+  signInWithGooglePopup,
+  signInAuthUserWithEmailAndPassword
+} from '../../utils/firebase/firebase.utils'
+
+const defaultFormFields = {
+  email: '',
+  password: ''
+}
+
+const SignInForm = () => {
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { email, password } = formFields
+
+  const { setCurrentUser } = useContext(UserContext)
+
+  // console.log(formFields)
+
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup()
+    await createUserDocumentFromAuth(user)
+  }
+
+  /** clears the form upon clicking the sign-up button */
+  const resetFormField = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      /**
+       * Note:
+       * const response = await signInAuthUserWithEmailAndPassword(email, password)
+       * then gi callback ni setCurrentUser(user)
+      */
+      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+      setCurrentUser(user)
+
+      // console.log(response)
+
+      resetFormField()
+    } catch (error) {
+      /*if user doesn't exists in firebase using switch statement */
+      switch (error.code) {
+        /* check if password doesn't match with the email */
+        case 'auth/wrong-password':
+          alert('wrong password for email')
+          break /* break if the case is meet the condition*/
+        /* check if inputted email and password exist if it does not exist throw and alert */
+        case 'auth/user-not-found':
+          alert('no user associated with this email address')
+          break
+        default:
+          console.log(error)
+      }
+    }
+  }
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    event.preventDefault()
+
+    setFormFields({ ...formFields, [name]: value })
+  }
+
+  return (
+    <div className='sign-up-container'>
+      <h2>Already have an account?</h2>
+      <span>Sign in with your email and password</span>
+      <form onSubmit={handleSubmit}>
+        <FormInput
+          label='Email'
+          name='email'
+          value={email}
+          onChange={handleChange}
+          type='email'
+          required
+        />
+
+        <FormInput
+          label='Password'
+          name='password'
+          value={password}
+          onChange={handleChange}
+          type='password'
+          required
+        />
+        <div className='buttons-container'>
+          <Button type='submit'>Sign In</Button>
+
+          {/* Note: without type='button' at <Button type="">Google Sign in<Button> upon clicking it  the <Button>Sign In</Button> will also fire and its error switch will trigger case 'auth/wrong-password':  and show alert in UI wrong passwrod for email*/}
+          <Button type='button' buttonType='google' onClick={signInWithGoogle}>
+            Google sign in
+          </Button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+export default SignInForm
+
+
+
+/** /src/components/sign-in-form/sign-in-form.components.jsx end========================================= **/
+
+/** /routes/navigation/navigation.component.jsx START =================================================== */
+
+import React, { Fragment, useContext } from 'react'
+// Link is just like an anchor tag link in a plain html
+import { Link, Outlet } from 'react-router-dom'
+
+import { ReactComponent as Logo } from '../../assets/images/crown.svg'
+import { UserContext } from '../../contexts/user.context'
+
+import './navigation.styles.scss'
+
+const Navigation = () => {
+  const { currentUser } = useContext(UserContext)
+  console.log(currentUser)
+
+  return (
+    <Fragment>
+      <div className='navigation'>
+        <Link className='logo-container' to={'/'}>
+          <Logo className='logo' />
+        </Link>
+        <div className='nav-links-container'>
+          <Link className='nav-link' to={'/shop'}>
+            SHOP
+          </Link>
+          <Link className='nav-link' to={'/auth'}>
+            SIGN IN
+          </Link>
+        </div>
+      </div>
+      <Outlet />
+    </Fragment>
+  )
+}
+
+export default Navigation
+/** /routes/navigation/navigation.component.jsx END ===================================================== */
+
+/** /src/main.jsx START ================================================================================= */
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App'
+import './index.scss'
+import { UserProvider } from './contexts/user.context'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <UserProvider> {/** adding the provider para maka labay from parent to child*/}
+        <App />
+      </UserProvider>
+    </BrowserRouter>
+  </React.StrictMode>
+)
+
+/** /src/main.jsx END   ================================================================================= */
+
+
+/** /contexts/user.context.js START  =================================================================== **/
+import { createContext, useState } from 'react'
+
+// as the actual value you want to access
+export const UserContext = createContext({
+  currentUser: null,
+  setCurrentUser: () => null
+})
+
+// provider
+export const UserProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null)
+  const value = { currentUser, setCurrentUser }
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+}
+
+/*
+ *  <UserProvider>
+ *    <app/>
+ *  </UserProvider>
+ *
+ *
+ */
+
+/** /contexts/user.context.js END    =================================================================== **/
+
+```
+
+<hr>
+
 ```jsx
 /**
  * 105. Need For Context - Explained- https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31147848#notes

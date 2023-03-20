@@ -1,10 +1,12 @@
 // @ts-nocheck
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import './sign-in-form.styles.scss'
 
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
+
+import { UserContext } from '../../contexts/user.context'
 
 import {
   createUserDocumentFromAuth,
@@ -20,6 +22,8 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
+
+  const { setCurrentUser } = useContext(UserContext)
 
   // console.log(formFields)
 
@@ -37,8 +41,12 @@ const SignInForm = () => {
     event.preventDefault()
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(email, password)
-      console.log(response)
+      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+
+      setCurrentUser(user)
+
+      // const response = await signInAuthUserWithEmailAndPassword(email, password)
+      // console.log(response)
 
       resetFormField()
     } catch (error) {
