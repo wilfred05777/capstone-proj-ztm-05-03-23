@@ -26,7 +26,7 @@ import './navigation.styles.scss'
 // The top level component / template
 const Navigation = () => {
   const { currentUser } = useContext(UserContext)
-  console.log(currentUser)
+  // console.log(currentUser)
 
   return (
     <Fragment>

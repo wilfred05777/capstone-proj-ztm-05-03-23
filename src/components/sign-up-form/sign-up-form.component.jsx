@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 
 import './sign-up-form.styles.scss'
 
@@ -11,6 +11,8 @@ import {
   createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils'
 
+import { UserContext } from '../../contexts/user.context'
+
 const defaultFormFields = {
   displayName: '',
   email: '',
@@ -21,6 +23,11 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
+
+  // functions are rerun using useContext hook
+  const val = useContext(UserContext)
+
+  console.log('hit')
 
   // console.log(formFields)
 

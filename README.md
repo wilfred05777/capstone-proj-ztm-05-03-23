@@ -4,6 +4,16 @@
 
 <hr>
 
+<!-- /** 107. Re-rendering From Context **/ -->
+
+- google->console-> ... costumize and control Devtools->more tools->rerendering->tick the paint flashing
+
+```jsx
+
+```
+
+<hr>
+
 [useContext Hooks Documentation link](https://react.dev/reference/react/useContext#updating-data-passed-via-context)
 
 ```jsx
