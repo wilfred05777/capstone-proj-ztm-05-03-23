@@ -21,12 +21,22 @@ import { Link, Outlet } from 'react-router-dom'
 import { ReactComponent as Logo } from '../../assets/images/crown.svg'
 import { UserContext } from '../../contexts/user.context'
 
+import { signOutUser } from '../../utils/firebase/firebase.utils'
+
 import './navigation.styles.scss'
 
 // The top level component / template
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext)
+  const { currentUser, setCurrentUser } = useContext(UserContext)
   // console.log(currentUser)
+
+  const signOutHandler = async () => {
+    // const res = await signOutUser()
+    // console.log(res)
+
+    await signOutUser()
+    setCurrentUser(null)
+  }
 
   return (
     <Fragment>
@@ -39,9 +49,16 @@ const Navigation = () => {
           <Link className='nav-link' to={'/shop'}>
             SHOP
           </Link>
-          <Link className='nav-link' to={'/auth'}>
-            SIGN IN
-          </Link>
+          {/* once a user clicks and if it successfully sign-in and sign-up the sign-in navigation menu will change to SIGN-OUT */}
+          {currentUser ? (
+            <span className='nav-link' onClick={signOutHandler}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className='nav-link' to={'/auth'}>
+              SIGN IN
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />
