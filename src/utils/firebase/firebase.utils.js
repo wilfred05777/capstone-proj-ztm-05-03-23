@@ -8,7 +8,8 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged
 } from 'firebase/auth'
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
 
@@ -137,3 +138,7 @@ export const signOutUser = async () => await signOut(auth)
  *  Functionality for Sign-Out interface layer function in firestore end
  *  =================================================================================================================
  */
+
+
+export const onAuthStateChangedListener = async (callback) =>
+  await onAuthStateChanged(auth, callback)
