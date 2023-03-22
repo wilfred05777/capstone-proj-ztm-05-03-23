@@ -5,7 +5,7 @@
 <hr>
 <!-- 112 start ============================-->
 
-`![image text](https://prnt.sc/Jx31zZp9rfSI)`
+![image text](https://prnt.sc/Jx31zZp9rfSI)
 
 <!-- 112 end  =============================-->
 
