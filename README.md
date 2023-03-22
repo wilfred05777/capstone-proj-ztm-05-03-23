@@ -5,7 +5,17 @@
 <hr>
 <!-- 112 start ============================-->
 
+- Observer Pattern for Click Stream
+
 ![Click Stream](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/Click-steam.png)
+
+- listener
+  ![Listener](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/listener.png)
+
+- subscribe flow
+  ![next](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/next.png)
+
+![complete](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/complete.png)
 
 <!-- 112 end  =============================-->
 
