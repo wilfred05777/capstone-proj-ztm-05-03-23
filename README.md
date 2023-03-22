@@ -3,6 +3,21 @@
 ================================================================
 
 <hr>
+<!-- 112 start ============================-->
+
+`![image text](https://prnt.sc/Jx31zZp9rfSI)`
+
+<!-- 112 end  =============================-->
+
+<hr >
+
+<!-- 111. Notes ============================= -->
+
+- Centralizing a context in order for it to be managable if the application scales up,
+  instead of implementing it one by one per component, centralizing will solve it by implementing through and calls it in methods and function imports in components
+
+<!-- 111. Notes ============================= -->
+<hr>
 
 <!-- /** 107. Re-rendering From Context **/ -->
 
