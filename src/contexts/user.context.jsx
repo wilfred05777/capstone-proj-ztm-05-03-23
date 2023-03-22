@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect } from 'react'
 import {
   onAuthStateChangedListener,
+  createUserDocumentFromAuth,
   signOutUser
 } from '../utils/firebase/firebase.utils'
 
@@ -20,7 +21,12 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        // Centralizing - createUserDocumentFromAuth instead of useContext per component in sign-in.component.jsx, majority of components base is centralized in user.context.jsx
+        createUserDocumentFromAuth(user)
+      }
       // console.log(user)
+      setCurrentUser(user)
     })
     return unsubscribe
   }, [])

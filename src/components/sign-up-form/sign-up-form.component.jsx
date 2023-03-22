@@ -11,7 +11,7 @@ import {
   createUserDocumentFromAuth
 } from '../../utils/firebase/firebase.utils'
 
-import { UserContext } from '../../contexts/user.context'
+// import { UserContext } from '../../contexts/user.context'
 
 const defaultFormFields = {
   displayName: '',
@@ -24,7 +24,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
 
-  const { setCurrentUser } = useContext(UserContext)
+  // const { setCurrentUser } = useContext(UserContext)
 
   // functions are rerun using useContext hook
   // const val = useContext(UserContext)
@@ -50,7 +50,7 @@ const SignUpForm = () => {
       // const response = await createAuthUserWithEmailAndPassword(email, password)
       // console.log(response)
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
-      setCurrentUser(user)
+      // setCurrentUser(user)
 
       /** display null value fixes here */
       await createUserDocumentFromAuth(user, { displayName })
@@ -58,6 +58,7 @@ const SignUpForm = () => {
       alert('Successfully signed up!')
 
       resetFormField()
+      // setCurrentUser(user)
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         alert('Cannot create user, email already in use')

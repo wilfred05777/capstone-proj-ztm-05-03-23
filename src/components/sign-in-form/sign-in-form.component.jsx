@@ -6,7 +6,7 @@ import './sign-in-form.styles.scss'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
 
-import { UserContext } from '../../contexts/user.context'
+// import { UserContext } from '../../contexts/user.context'
 
 import {
   createUserDocumentFromAuth,
@@ -23,13 +23,15 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
-  const { setCurrentUser } = useContext(UserContext)
+  // const { setCurrentUser } = useContext(UserContext)
 
   // console.log(formFields)
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup()
-    await createUserDocumentFromAuth(user)
+    await signInWithGooglePopup()
+
+    // const { user } = await signInWithGooglePopup()
+    // await createUserDocumentFromAuth(user) // => move to user.context.jsx
   }
 
   /** clears the form upon clicking the sign-up button */
@@ -41,9 +43,11 @@ const SignInForm = () => {
     event.preventDefault()
 
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+      await signInAuthUserWithEmailAndPassword(email, password)
 
-      setCurrentUser(user)
+      // setCurrentUser(user)
+
+      // const { user } = await signInAuthUserWithEmailAndPassword(email, password)
 
       // const response = await signInAuthUserWithEmailAndPassword(email, password)
       // console.log(response)
