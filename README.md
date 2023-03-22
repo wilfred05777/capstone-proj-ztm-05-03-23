@@ -64,7 +64,9 @@ useEffect(() => {
 <!-- 111. Notes ============================= -->
 
 ```
- 111: Notes
+ 111: Note lectures
+
+ - https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31159552#notes
 
 ```
 
