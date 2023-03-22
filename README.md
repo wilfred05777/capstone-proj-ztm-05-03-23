@@ -1,6 +1,6 @@
 # capstone-proj-ztm-05-03-23
 
-================================================================
+===================================================
 
 <hr>
 <!-- 112 start ============================-->
@@ -16,6 +16,16 @@
   ![next](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/next.png)
 
 ![complete](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/complete.png)
+
+- how error stream works
+  ![error](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/error.png)
+
+- example code demo from firebase.utils.js
+  ![codedemo](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/codedemo.png)
+
+```jsx
+
+```
 
 <!-- 112 end  =============================-->
 
@@ -34,7 +44,37 @@
 - google->console-> ... costumize and control Devtools->more tools->rerendering->tick the paint flashing
 
 ```jsx
+/** firebse.utils.jsx **/
+export const onAuthStateChangedListener = async (callback) =>
+  await onAuthStateChanged(auth, callback)
 
+/**
+ * asynchronous stream callback
+ *
+ * export const onAuthStateChangedListener = async (callback) =>
+ *
+ *   await onAuthStateChanged(auth, callback, errorCallback, completedCallback)
+ * {
+ *  next: callback,
+ *  error: error callback,
+ *  complete: completedCallback
+ * }
+ */
+
+// we need to unsubscribe from the subscription =================================================================
+
+/** user.context.jsx **/
+useEffect(() => {
+  const unsubscribe = onAuthStateChangedListener((user) => {
+    if (user) {
+      // Centralizing - createUserDocumentFromAuth instead of useContext per component in sign-in.component.jsx, majority of components base is centralized in user.context.jsx
+      createUserDocumentFromAuth(user)
+    }
+    // console.log(user)
+    setCurrentUser(user)
+  })
+  return unsubscribe
+}, [])
 ```
 
 <hr>

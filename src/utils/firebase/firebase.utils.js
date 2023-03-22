@@ -139,6 +139,18 @@ export const signOutUser = async () => await signOut(auth)
  *  =================================================================================================================
  */
 
-
 export const onAuthStateChangedListener = async (callback) =>
   await onAuthStateChanged(auth, callback)
+
+/**
+ * asynchronous stream callback
+ *
+ * export const onAuthStateChangedListener = async (callback) =>
+ *
+ *   await onAuthStateChanged(auth, callback, errorCallback, completedCallback)
+ * {
+ *  next: callback,
+ *  error: error callback,
+ *  complete: completedCallback
+ * }
+ */
