@@ -5,7 +5,7 @@
 <hr>
 <!-- 112 start ============================-->
 
-![image text](https://prnt.sc/Jx31zZp9rfSI)
+![Click Stream](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/Click-steam.png)
 
 <!-- 112 end  =============================-->
 
