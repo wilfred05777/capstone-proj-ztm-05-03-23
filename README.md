@@ -64,7 +64,7 @@ useEffect(() => {
 <!-- 111. Notes ============================= -->
 
 ```
- <!-- 111. Notes =============================  -->
+ 111: Notes
 
 ```
 
@@ -76,11 +76,13 @@ useEffect(() => {
 
 <!-- /** 107. Re-rendering From Context **/ -->
 
-- google->console-> ... costumize and control Devtools->more tools->rerendering->tick the paint flashing
+```
 
-```jsx
+ /** 107. Re-rendering From Context **/
 
 ```
+
+- google->console-> ... customize and control Devtools->more tools->rerendering->tick the paint flashing
 
 <hr>
 
