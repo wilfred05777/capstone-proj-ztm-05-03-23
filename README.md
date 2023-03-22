@@ -24,26 +24,6 @@
   ![codedemo](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/codedemo.png)
 
 ```jsx
-
-```
-
-<!-- 112 end  =============================-->
-
-<hr >
-
-<!-- 111. Notes ============================= -->
-
-- Centralizing a context in order for it to be managable if the application scales up,
-  instead of implementing it one by one per component, centralizing will solve it by implementing through and calls it in methods and function imports in components
-
-<!-- 111. Notes ============================= -->
-<hr>
-
-<!-- /** 107. Re-rendering From Context **/ -->
-
-- google->console-> ... costumize and control Devtools->more tools->rerendering->tick the paint flashing
-
-```jsx
 /** firebse.utils.jsx **/
 export const onAuthStateChangedListener = async (callback) =>
   await onAuthStateChanged(auth, callback)
@@ -75,6 +55,26 @@ useEffect(() => {
   })
   return unsubscribe
 }, [])
+```
+
+<!-- 112 end  =============================-->
+
+<hr >
+
+<!-- 111. Notes ============================= -->
+
+- Centralizing a context in order for it to be managable if the application scales up,
+  instead of implementing it one by one per component, centralizing will solve it by implementing through and calls it in methods and function imports in components
+
+<!-- 111. Notes ============================= -->
+<hr>
+
+<!-- /** 107. Re-rendering From Context **/ -->
+
+- google->console-> ... costumize and control Devtools->more tools->rerendering->tick the paint flashing
+
+```jsx
+
 ```
 
 <hr>
