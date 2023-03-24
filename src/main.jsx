@@ -6,6 +6,7 @@ import './index.scss'
 
 import { UserProvider } from './contexts/user.context'
 import { ProductsProvider } from './contexts/products.context'
+import { ServicesProvider } from './contexts/services.context'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   /**
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <UserProvider>
       <ProductsProvider>
-        <App />
+        <ServicesProvider>
+          <App />
+        </ServicesProvider>
       </ProductsProvider>
     </UserProvider>
   </BrowserRouter>

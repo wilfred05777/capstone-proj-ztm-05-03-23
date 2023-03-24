@@ -50,6 +50,9 @@ const Navigation = () => {
           <Link className='nav-link' to={'/shop'}>
             SHOP
           </Link>
+          <Link className='nav-link' to={'/services'}>
+            SERVICES
+          </Link>
           {/* once a user clicks and if it successfully sign-in and sign-up the sign-in navigation menu will change to SIGN-OUT */}
           {currentUser ? (
             <span className='nav-link' onClick={signOutUser}>
