@@ -7,7 +7,7 @@ export const ServicesContext = createContext({
 })
 
 export const ServicesProvider = ({ children }) => {
-  const [services, setService] = useState(SERVICES)
+  const [services, setServices] = useState(SERVICES)
 
   const value = { services }
 
