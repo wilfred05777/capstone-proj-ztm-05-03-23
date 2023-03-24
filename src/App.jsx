@@ -11,6 +11,7 @@ import Shop from './routes/shop/shop.component'
  * import SignIn from './routes/authentication/authentication.component'*/
 import Authentication from './routes/authentication/authentication.component'
 
+
 function App() {
   return (
     <Routes>
