@@ -1,10 +1,167 @@
 # capstone-proj-ztm-05-03-23
 
-===================================================
+<hr>
 
 <hr>
 
-<!-- 115-Product-Card-Component -->
+### 117. Toggle Cart Open - with React useContext
+
+- step 1: create a nameContext.jsx (example below)
+
+```jsx
+/* cart.context.jsx */
+import { createContext, useState } from 'react'
+
+export const CartContext = createContext({
+  isCartOpen: false,
+  setIsCartOpen: () => {}
+})
+
+export const CartProvider = ({ children }) => {
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const value = { isCartOpen, setIsCartOpen }
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+}
+```
+
+- step 2: import the CartProvider in index.jsx or main.jsx
+
+```jsx
+/*main.jsx or index.jsx*/
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App'
+import './index.scss'
+
+import { UserProvider } from './contexts/user.context'
+import { ProductsProvider } from './contexts/products.context'
+
+// import CartProvider from cart.context
+import { CartProvider } from './contexts/cart.context'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <UserProvider>
+      <ProductsProvider>
+        // hooked the CartProvider
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </ProductsProvider>
+    </UserProvider>
+  </BrowserRouter>
+)
+```
+
+- step 3: adto ko sa navigation.component.jsx
+  - import useContext from react
+  - import CartDropdown component
+  - import CartContext from cart.context
+  - //set isCartOpen const { isCartOpen } = useContext(CartContext)
+  - // in UI - {isCartOpen && <CartDropdown />}
+
+```jsx
+/* route/navigation/navigaiton.component.jsx */
+
+// import useContext from react
+import React, { Fragment, useContext } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { ReactComponent as Logo } from '../../assets/images/crown.svg'
+import { UserContext } from '../../contexts/user.context'
+import { signOutUser } from '../../utils/firebase/firebase.utils'
+import './navigation.styles.scss'
+import CartIcon from '../../components/cart-icon/cart-icon.component'
+
+import CartDropdown from '../../components/cart-dropdown/cart-dropdown-component'
+
+// import CartContext from '../../components/cart-context/cart-
+import { CartContext } from '../../contexts/cart.context'
+
+const Navigation = () => {
+  // set isCartOpen
+  const { isCartOpen } = useContext(CartContext)
+
+  const { currentUser } = useContext(UserContext)
+
+  return (
+    <Fragment>
+      <div className='navigation'>
+        <Link className='logo-container' to={'/'}>
+          <Logo className='logo' />
+        </Link>
+        <div className='nav-links-container'>
+          <Link className='nav-link' to={'/shop'}>
+            SHOP
+          </Link>
+
+          {currentUser ? (
+            <span className='nav-link' onClick={signOutUser}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link className='nav-link' to={'/auth'}>
+              SIGN IN
+            </Link>
+          )}
+          <CartIcon />
+        </div>
+        // in UI
+        {isCartOpen && <CartDropdown />}
+      </div>
+      <Outlet />
+    </Fragment>
+  )
+}
+
+export default Navigation
+```
+
+- step 4:
+  - import useContext from react
+  - import CartContext
+  - // set isCartOpen and setIsCartOpen
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext)
+  - // create toggleIsCartOpen
+    const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen)
+  - // add onClick handler
+    `<div className='cart-icon-container' onClick={toggleIsCartOpen}>`
+
+```jsx
+/* component/cart-icon/cart-icon.component.jsx */
+
+//  import useContext from react
+import React, { useContext } from 'react'
+import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg'
+import './cart-icon-styles.scss'
+
+// import CartContext
+import { CartContext } from '../../contexts/cart.context'
+
+const CartIcon = () => {
+  // set isCartOpen and setIsCartOpen
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext)
+
+  // create toggleIsCartOpen
+  const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen)
+
+  return (
+    //  add onClick handler here
+    <div className='cart-icon-container ' onClick={toggleIsCartOpen}>
+      {/* <h2>CartIcon</h2> */}
+      <ShoppingIcon className='shopping-icon' />
+      <span className='item-count'>0</span>
+    </div>
+  )
+}
+
+export default CartIcon
+```
+
+<hr>
+
+### 115-Product-Card-Component
 
 [A Complete Guide to CSS Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
 
