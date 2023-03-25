@@ -2,12 +2,12 @@ import React from 'react'
 import './cart-item.styles.scss'
 
 const CartItem = ({ cartItem }) => {
-  const { name, qunatity } = cartItem
+  const { name, quantity } = cartItem
 
   return (
-    <div>
+    <div className=''>
       <h2>{name}</h2>
-      <span>{qunatity}</span>
+      <span>{quantity}</span>
     </div>
   )
 }
