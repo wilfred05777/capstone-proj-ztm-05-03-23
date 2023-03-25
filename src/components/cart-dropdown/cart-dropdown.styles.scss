@@ -10,9 +10,10 @@
   top: 90px;
   right: 40px;
   z-index: 5;
+   
 
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
+  // overflow-y: hidden; /* Hide vertical scrollbar */
+  // overflow-x: hidden; /* Hide horizontal scrollbar */
 
   .empty-message {
     font-size: 18px;
@@ -27,6 +28,10 @@
   }
 
   button {
+    // width: fit-content;
+    // font-family: 'Open Sans Condensed';
+    display: inline;
+    // width: auto;
     margin-top: auto;
   }
 }
