@@ -59,8 +59,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   - import useContext from react
   - import CartDropdown component
   - import CartContext from cart.context
-  - //set isCartOpen const { isCartOpen } = useContext(CartContext)
-  - // in UI - {isCartOpen && <CartDropdown />}
+  - //set ```isCartOpen const { isCartOpen } = useContext(CartContext)```
+  - // in UI - ```{isCartOpen && <CartDropdown />}```
 
 ```jsx
 /* route/navigation/navigaiton.component.jsx */
@@ -121,11 +121,11 @@ export default Navigation
 - step 4:
   - import useContext from react
   - import CartContext
-  - // set isCartOpen and setIsCartOpen
-    const { isCartOpen, setIsCartOpen } = useContext(CartContext)
-  - // create toggleIsCartOpen
-    const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen)
-  - // add onClick handler
+  - set isCartOpen and setIsCartOpen
+    ```const { isCartOpen, setIsCartOpen } = useContext(CartContext)```
+  - create toggleIsCartOpen
+    ```const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen)```
+  - add onClick handler
     `<div className='cart-icon-container' onClick={toggleIsCartOpen}>`
 
 ```jsx
