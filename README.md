@@ -77,6 +77,180 @@ export const CartProvider = ({ children }) => {
 
 <hr>
 
+### 118. Add To Cart Pt.1
+
+- create Cart-Item component
+- then add to cart-dropdown component
+
+```jsx
+/* /components/cart-item/cart-item.component.jsx  */
+
+import React from 'react'
+import './cart-item.styles.scss'
+
+const CartItem = ({ cartItem }) => {
+  const { name, quantity } = cartItem
+
+  return (
+    <div className=''>
+      <h2>{name}</h2>
+      <span>{quantity}</span>
+    </div>
+  )
+}
+
+export default CartItem
+```
+
+- import CartItem into card-dropdown component
+
+```jsx
+/* /components/cart-dropdown.component.jsx */
+
+import React, { useContext } from 'react'
+import { CartContext } from '../../contexts/cart.context'
+
+import Button from '../button/button.component'
+
+import './cart-dropdown.styles.scss'
+
+import CartItem from '../cart-item/cart-item.component'
+
+const CartDropdown = () => {
+  const { cartItems } = useContext(CartContext)
+
+  return (
+    <div className='cart-dropdown-container'>
+      <div className='cart-items'>
+        {[].map((item) => (
+          <CartItem cartItem={item} />
+        ))}
+      </div>
+
+      <Button>CHECKOUT</Button>
+    </div>
+  )
+}
+
+export default CartDropdown
+```
+
+- cart.context.jsx
+
+  - explains the how to
+
+    ```jsx
+    /* pseudo code for how we design our functionality for our the cart item /*
+      
+        product
+        {
+          id,
+          name,
+          price,
+          imageUrl,
+        }
+        /* Cart Item kay need ug quantity how do we solve the problem? */
+    /*
+        {
+          id,
+          name,
+          price,
+          imageUrl,
+          quantity,
+          }
+        */
+    ```
+
+  - add the following
+
+    ```
+    cartItems: [],
+    addItemToCart: () => {}
+    ```
+
+  - creating a helping function logic
+
+    ```jsx
+    const addCartItem = (cartItems, productToAdd) => {
+      /* find if cartItems contains productToAdd */
+      /* if found, increment quantity*/
+      /* return new array with modified cartItems/ new cart items */
+    }
+    ```
+
+  - invoke addItemToCart in the CartProvider
+
+  ```jsx
+  const addItemToCart = (productToAdd) => {
+    setCartItems(addCartItem(cartItems, productToAdd))
+  }
+  ```
+
+###### full code for lecture 118. Add To Cart Pt.1
+
+```jsx
+/* /context/cart.context.jsx */
+
+import { createContext, useState } from 'react'
+
+// helper functions
+const addCartItem = (cartItems, productToAdd) => {
+  /* find if cartItems contains productToAdd */
+  //  code here
+  /* if found, increment quantity*/
+  // code here
+  /* return new array with modified cartItems/ new cart items */
+  // code here
+}
+
+export const CartContext = createContext({
+  isCartOpen: false,
+  setIsCartOpen: () => {},
+  cartItems: [],
+  addItemToCart: () => {}
+})
+
+/**
+  pseudo code for how we design our functionality for our the cart item
+ 
+  product
+  {
+   id,
+   name,
+   price,
+   imageUrl,
+  }
+ 
+  Cart Item kay need ug quantity how do we solve the problem?
+ 
+   {
+     id,
+     name,
+     price,
+     imageUrl,
+     quantity,
+   }
+ */
+
+export const CartProvider = ({ children }) => {
+  const [isCartOpen, setIsCartOpen] = useState(false)
+
+  // by default we use an empty array here useState([])
+  const [cartItems, setCartItems] = useState([])
+
+  const addItemToCart = (productToAdd) => {
+    setCartItems(addCartItem(cartItems, productToAdd))
+  }
+
+  const value = { isCartOpen, setIsCartOpen }
+  // const value = { isCartOpen, setIsCartOpen, addItemToCart, cartItems }
+
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+}
+```
+
+<hr>
+
 ### 117. Toggle Cart Open - with React useContext
 
 - step 1: create a nameContext.jsx (example below)
