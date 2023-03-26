@@ -139,44 +139,44 @@ export default CartDropdown
 
   - explains the how to
 
-    ```jsx
-    /* pseudo code for how we design our functionality for our the cart item /*
-      
-        product
-        {
-          id,
-          name,
-          price,
-          imageUrl,
+  ```jsx
+  /* pseudo code for how we design our functionality for our the cart item /*
+    
+      product
+      {
+        id,
+        name,
+        price,
+        imageUrl,
+      }
+      /* Cart Item kay need ug quantity how do we solve the problem? */
+  /*
+      {
+        id,
+        name,
+        price,
+        imageUrl,
+        quantity,
         }
-        /* Cart Item kay need ug quantity how do we solve the problem? */
-    /*
-        {
-          id,
-          name,
-          price,
-          imageUrl,
-          quantity,
-          }
-        */
-    ```
+      */
+  ```
 
   - add the following
 
-    ```
-    cartItems: [],
-    addItemToCart: () => {}
-    ```
+  ```
+  cartItems: [],
+  addItemToCart: () => {}
+  ```
 
   - creating a helping function logic
 
-    ```jsx
-    const addCartItem = (cartItems, productToAdd) => {
-      /* find if cartItems contains productToAdd */
-      /* if found, increment quantity*/
-      /* return new array with modified cartItems/ new cart items */
-    }
-    ```
+  ```jsx
+  const addCartItem = (cartItems, productToAdd) => {
+    /* find if cartItems contains productToAdd */
+    /* if found, increment quantity*/
+    /* return new array with modified cartItems/ new cart items */
+  }
+  ```
 
   - invoke addItemToCart in the CartProvider
 
