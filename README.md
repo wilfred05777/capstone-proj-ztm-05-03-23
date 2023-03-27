@@ -4,8 +4,10 @@
 
 ### 119. Add To Cart Pt.2
 
+- cart.context.jsx
+
 ```jsx
-/*cart.context.jsx*/
+/*contexts/cart.context.jsx*/
 
 import { createContext, useState } from 'react'
 
@@ -73,6 +75,78 @@ export const CartProvider = ({ children }) => {
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
+```
+
+- cart-dropdown.component.jsx
+
+```jsx
+/*components/cart-dropdown.component.jsx*/
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/cart.context'
+import CartItem from '../cart-item/cart-item.component'
+
+const CartDropdown = () => {
+  const { cartItems } = useContext(CartContext)
+
+  return (
+    <div className='cart-dropdown-container'>
+      <div className='cart-items'>
+        {cartItems.map((item) => (
+          <CartItem key={item.id} cartItem={item} />
+        ))}
+      </div>
+
+      <Button>CHECKOUT</Button>
+    </div>
+  )
+}
+
+export default CartDropdown
+```
+
+- product-card.components.jsx
+
+```javascript
+// 1 import useContext from react
+import React, { useContext } from 'react'
+// 2 import CartContext component
+import { CartContext } from '../../contexts/cart.context'
+
+import './product-card-styles.scss'
+
+import Button from '../button/button.component'
+
+const ProductCard = ({ product }) => {
+  const { name, price, imageUrl } = product
+  // 3 additemto cart from useContext->CartContext
+  const { addItemToCart } = useContext(CartContext)
+
+  // easier to Optimize / Readability
+  // 5.
+  const addProductToCart = () => {
+    addItemToCart(product)
+  }
+  return (
+    <div className='product-card-container'>
+      <img src={imageUrl} alt={`${name}`} />
+      <div className='footer'>
+        <span className='name'>{name}</span>
+        <span className='price'>{price}</span>
+      </div>
+      // 6.2. onClick={addProductToCert}
+      <Button buttonType={'inverted'} onClick={addProductToCart}>
+        Add to cart
+      </Button>
+      // 6.1. onClick={addProductToCert}
+      {/* instead of this approach the reason why we define it outside is optimization */}
+      {/* <Button buttonType={'inverted'} onClick={() => addItemToCart(product)}>
+        Add to cart
+      </Button> */}
+    </div>
+  )
+}
+
+export default ProductCard
 ```
 
 <hr>
