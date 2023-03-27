@@ -1,13 +1,19 @@
 html{
-  overflow:   scroll;
+  overflow-x: auto;
+  overflow-y: auto; 
+  // overflow:   scroll;
+  // overflow-y: scroll; /* Hide horizontal scrollbar */
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  display: none; 
+  // width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
 
 body {
+  // overflow-x: auto;
+  // overflow-y: hidden; 
   margin: 0;
   // padding: 2rem 4rem;
   padding: 20px 40px;
