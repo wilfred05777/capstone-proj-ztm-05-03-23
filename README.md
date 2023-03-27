@@ -2,6 +2,10 @@
 
 <hr>
 
+### 120 - 123 needs to rewatch kay wala nako nako naka sabay.
+
+<hr>
+
 ### 119. Add To Cart Pt.2
 
 - cart.context.jsx
