@@ -2,7 +2,7 @@
 
 <hr>
 
-### 120 - 123 needs to rewatch kay wala nako nako naka sabay.
+### 120 - 126 needs to rewatch kay wala nako nako naka sabay.
 
 <hr>
 
