@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
   // signOutUser()
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener( (user) => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         // Centralizing - createUserDocumentFromAuth instead of useContext per component in sign-in.component.jsx, majority of components base is centralized in user.context.jsx
         createUserDocumentFromAuth(user)
@@ -32,7 +32,9 @@ export const UserProvider = ({ children }) => {
       setCurrentUser(user)
       setIsLoading(false)
     })
-    return unsubscribe
+
+    // return unsubscribe
+    return () => unsubscribe()
   }, [])
 
   // useEffect(() => {
