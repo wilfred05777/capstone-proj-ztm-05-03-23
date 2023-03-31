@@ -138,9 +138,19 @@ export const signOutUser = async () => await signOut(auth)
  *  Functionality for Sign-Out interface layer function in firestore end
  *  =================================================================================================================
  */
+// original implementation
+// export const onAuthStateChangedListener = async (callback) => {
+//   await onAuthStateChanged(auth, callback)
+// }
 
-export const onAuthStateChangedListener = async (callback) =>
-  await onAuthStateChanged(auth, callback)
+export const onAuthStateChangedListener = (callback) => {
+  return auth.onAuthStateChanged(callback)
+}
+
+// Export onAuthStateChanged method testing implemenation
+// export const onAuthStateChangedListener = (callback) => {
+//   return auth.onAuthStateChanged(callback)
+// }
 
 /**
  * asynchronous stream callback
