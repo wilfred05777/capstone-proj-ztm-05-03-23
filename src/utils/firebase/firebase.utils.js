@@ -11,7 +11,15 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
-import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore'
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection, // firestore is what governs our database/no sql
+  writeBatch
+} from 'firebase/firestore'
 
 import { getAnalytics } from 'firebase/analytics'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -46,6 +54,20 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider)
 
 export const db = getFirestore()
+
+export const addCollectionAndDocument = async (collectionkey, objectsToAdd) => {
+  const collectionRef = collection(db, collectionkey)
+
+  /** - Reference to writeBatch in firestore
+    concept of transaction - Scenario for bank account transaction transferring money from 
+   
+    Wilfred: 1000 => 900
+    -100 
+
+    Rowena: 1000 => 1100
+    +100
+   */
+}
 
 /**
  *  Functionality - Create User in Firestore with authentication
