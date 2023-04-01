@@ -55,10 +55,28 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore()
 
-export const addCollectionAndDocument = async (collectionkey, objectsToAdd) => {
+/** 129. addCollectionAndDocuments Pt.1 - Pt.2 start */
+export const addCollectionAndDocuments = async (
+  collectionkey,
+  objectsToAdd,
+  field = 'title'
+) => {
+  /** 129. addCollectionAndDocuments Pt.2 start */
   const collectionRef = collection(db, collectionkey)
+  const batch = writeBatch(db)
 
-  /** - Reference to writeBatch in firestore
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    // const docRef = doc(collectionRef, object[field].toLowerCase())
+    batch.set(docRef, object)
+  })
+
+  await batch.commit()
+  console.log('done')
+  /** 129. addCollectionAndDocuments Pt.2  end */
+
+  /** comments from 128. addCollectionAndDocuments Pt.1
+   * - Reference to writeBatch in firestore
     concept of transaction - Scenario for bank account transaction transferring money from 
    
     Wilfred: 1000 => 900
@@ -68,6 +86,7 @@ export const addCollectionAndDocument = async (collectionkey, objectsToAdd) => {
     +100
    */
 }
+/** 129. addCollectionAndDocuments Pt.1 - Pt.2 end */
 
 /**
  *  Functionality - Create User in Firestore with authentication
