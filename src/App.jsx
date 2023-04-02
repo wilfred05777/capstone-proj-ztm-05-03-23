@@ -19,7 +19,9 @@ function App() {
         <Route index element={<Home />} />
         {/* index is matching the as the base component  */}
         {/* <Route path='/home' element={<Home />} /> */}
-        <Route path='shop' element={<Shop />} />
+
+        {/* shop/* anything with this wildcard render it from the component <Shop/> */}
+        <Route path='shop/*' element={<Shop />} />
         <Route path='checkout' element={<Checkout />} />
         {/* 
           renaming the SignIn to Authentication Component
