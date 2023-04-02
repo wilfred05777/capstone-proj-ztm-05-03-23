@@ -2,6 +2,16 @@
 
 <hr>
 
+```jsx
+/**
+ * 136. Fixing Clashing Styles
+ *
+ *  LEARNING NOTE: kung naay files example bisan pag lahi ang folder pero ang content sa scss pareho kay mag conflict jud sa styling
+ */
+```
+
+<hr>
+
 ### 120 - 126 needs to rewatch kay wala nako nako naka sabay.
 
 <hr>
