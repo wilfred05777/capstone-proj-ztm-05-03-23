@@ -1,8 +1,10 @@
 import React from 'react'
 import './directory-item.styles.scss'
 
-const DirectoryItem = ({ categoryItemComponent }) => {
-  const { id, imageUrl, title, cta } = categoryItemComponent
+// const DirectoryItem = ({ categoryItemComponent }) => {
+// const { id, imageUrl, title, cta } = categoryItemComponent
+const DirectoryItem = ({ category }) => {
+  const { id, imageUrl, title, cta } = category
   // const CategoryItem = ({ category }) => {
   //   const { id, imageUrl, title, cta } = category
 
