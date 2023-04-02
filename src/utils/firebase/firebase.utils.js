@@ -18,7 +18,9 @@ import {
   getDoc,
   setDoc,
   collection, // firestore is what governs our database/no sql
-  writeBatch
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore'
 
 import { getAnalytics } from 'firebase/analytics'
@@ -73,6 +75,7 @@ export const addCollectionAndDocuments = async (
 
   await batch.commit()
   console.log('done')
+
   /** 129. addCollectionAndDocuments Pt.2  end */
 
   /** comments from 128. addCollectionAndDocuments Pt.1
@@ -86,7 +89,74 @@ export const addCollectionAndDocuments = async (
     +100
    */
 }
+
 /** 129. addCollectionAndDocuments Pt.1 - Pt.2 end */
+
+/**130. Get Products + Categories From Firestore start
+ *
+ * LEARNING NOTES:
+ *  Teachers Note:- One, we got a better understanding of
+ *  why we set up all
+ *  these utility functions because we want to minimize the impact that
+ *  changing third party libraries have on our code base.
+ *
+ *  this design pattern it's keeping the
+ *  order designed pattern for isolating
+ *  our code if ever the third party library packages
+ *  changes
+ *
+ *  Teachers Note: - And secondly, we also learned about
+ *  using async functions
+ *  inside of use effect.
+ *  We want to make our own new async function within the callback,
+ *  and then what we want to do is we want to call it inside of
+ *  the same callback after it's been initialized.
+ *
+ * javascript design patter and framework changes
+ * constantly and rapidly changing
+ */
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories')
+  // generate a query using this collectionRef
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q)
+  // querySnapshot.docs
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data()
+    acc[title.toLowerCase()] = items
+    return acc
+  }, {})
+
+  return categoryMap
+}
+
+/**
+ * 130. Get Products + Categories From Firestore / Query Structures that
+ * we want to achieve
+ * Mapping of json objects looks like
+ * {
+ *   // values
+ *   hats: {
+ *     title: 'Hats',
+ *     items: [
+ *     {},
+ *     {}
+ *    ]
+ *   },
+ *   sneakers: {
+ *     title: 'Sneakers',
+ *     items: [
+ *      {},
+ *      {}
+ *     ]
+ *    }
+ *  }
+ *
+ *
+ */
+
+/**130. Get Products + Categories From Firestore end */
 
 /**
  *  Functionality - Create User in Firestore with authentication
