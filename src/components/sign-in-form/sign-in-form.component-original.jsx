@@ -4,10 +4,7 @@ import React, { useState, useContext } from 'react'
 import './sign-in-form.styles.scss'
 
 import FormInput from '../form-input/form-input.component'
-// import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
-
-// import Button from '../button/button.component.jsx'
-import Button, { BUTTON_TYPE_CLASSES } from '../buttons/buttons.component'
+import Button from '../button/button.component'
 
 // import { UserContext } from '../../contexts/user.context'
 
@@ -113,12 +110,7 @@ const SignInForm = () => {
           <Button type='submit'>Sign In</Button>
 
           {/* Note: without type='button' at <Button type="">Google Sign in<Button> upon clicking it  the <Button>Sign In</Button> will also fire and its error switch will trigger case 'auth/wrong-password':  and show alert in UI wrong passwrod for email*/}
-          <Button
-            type='button'
-            buttonType={BUTTON_TYPE_CLASSES.google}
-            // buttonType='google'
-            onClick={signInWithGoogle}
-          >
+          <Button type='button' buttonType='google' onClick={signInWithGoogle}>
             Google sign in
           </Button>
         </div>
