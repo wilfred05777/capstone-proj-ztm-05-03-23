@@ -4,7 +4,9 @@ import React, { useState, useContext } from 'react'
 import './sign-up-form.styles.scss'
 
 import FormInput from '../form-input/form-input.component'
-import Button from '../button/button.component'
+// import Button from '../button/button.component'
+
+import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
 
 import {
   createAuthUserWithEmailAndPassword,
@@ -115,7 +117,11 @@ const SignUpForm = () => {
           type='password'
           required
         />
-        <Button buttonType='default' type='submit'>
+        <Button
+          // buttonType='default'
+          buttonType={BUTTON_TYPE_CLASSES.base}
+          type='submit'
+        >
           Sign Up
         </Button>
         {/* <button type='submit'>Sign Up</button> */}

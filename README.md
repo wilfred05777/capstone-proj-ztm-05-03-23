@@ -2,6 +2,29 @@
 
 <hr>
 
+```js
+/**
+ * 138. Styled-Components - Button
+ * Lesson Notes:
+ *
+ * 1st lesson:
+ *   is dapat di apili ang uban ug check sa affected na design
+ *   na component
+ *   kung daghan ug component within one UI iadjust pud
+ *   kay guba jud ang ui
+ *
+ * 2nd lesson:
+ *  dapat icheck ang console error permi para ma lessen
+ *  ang time constraint
+ *
+ * 3rd lesson:
+ *  do research on the error shown in the console
+ *
+ */
+```
+
+<hr>
+
 ```jsx
 /**
  * 136. Fixing Clashing Styles
