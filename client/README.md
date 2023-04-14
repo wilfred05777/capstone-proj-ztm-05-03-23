@@ -8,6 +8,12 @@
  */
 ```
 
+- fixing-refresh in Vercel vercel-root-directory-fixed
+
+  - redeploy in vercel and select the correct folder path
+
+  ![Fixing Refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/master/client/src/assets/images/vercel-root-directory-fixed.png)
+
 - fixing-refresh in netlify not working in vercel deployment
   ![Fixing Refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/master/client/src/assets/images/fixing-refresh.png)
 
