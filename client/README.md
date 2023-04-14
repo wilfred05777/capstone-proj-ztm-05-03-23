@@ -12,7 +12,7 @@
 
 ![Click Stream](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/Click-steam.png)
 
-![Fixing Refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/fixing-refresh.png)
+![Fixing Refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/master/client/src/assets/images/fixing-refresh.png)
 
 <hr>
 
