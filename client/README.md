@@ -3,6 +3,17 @@
 <hr>
 
 ```js
+/* 144. Adding Redirects For Netlify
+ * https://www.udemy.com/course/complete-react-developer-zero-to-mastery/learn/lecture/31212298#notes
+ */
+```
+
+- fixing-refresh
+  ![fixing-refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/fixing-refresh.png)
+
+<hr>
+
+```js
 /**
  * 138. Styled-Components - Button
  * Lesson Notes:
