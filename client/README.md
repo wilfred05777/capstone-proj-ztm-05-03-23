@@ -9,7 +9,8 @@
 ```
 
 - fixing-refresh in vercel/netlify
-  ![fixing-refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/fixing-refresh.png)
+
+![fixing-refresh](https://github.com/wilfred05777/capstone-proj-ztm-05-03-23/blob/112-Observer-Pattern/src/assets/images/fixing-refresh.png)
 
 <hr>
 
