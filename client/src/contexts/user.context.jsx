@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useReducer } from 'react'
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
@@ -14,11 +14,60 @@ export const UserContext = createContext({
   setCurrentUser: () => null
 })
 
+// {
+//   currentUser = null || googleAuthObj,
+//   firstName: '',
+//   lastName: ''
+// }
+
+export const USER_ACTION_TYPES = {
+  SET_CURRENT_USER: 'SET_CURRENT_USER'
+}
+
+export const userReducer = (state, action) => {
+  console.log('dispatched')
+  console.log(action)
+  const { type, payload } = action
+
+  switch (type) {
+    // case 'SET_CURRENT_USER':
+    case USER_ACTION_TYPES.SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: payload
+      }
+
+    // case 'increment':
+    //   return { value: state.value + 1 }
+    default:
+      throw new Error(`Unhandled type ${type} in userReducer`)
+  }
+
+  // return {
+  //   currentUser: payload
+  // }
+}
+
+const INITIAL_STATE = {
+  currentUser: null
+}
+
 // provider
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  // const [currentUser, setCurrentUser] = useState(null)
+
+  // const [state, dispatch] = userReducer(userReducer, INITIAL_STATE)
+  const [{ currentUser }, dispatch] = userReducer(userReducer, INITIAL_STATE)
+  console.log(currentUser)
+
+  const setCurrentUser = (user) => {
+    dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+  }
+  // dispatch()
+
   const value = { currentUser, setCurrentUser, isLoading }
+
+  // const [isLoading, setIsLoading] = useState(true)
 
   // signOutUser()
 
@@ -65,6 +114,14 @@ export const UserProvider = ({ children }) => {
     </>
   )
 }
+
+/* 146 - userReducer
+ const userReducer = (state, action)  => {
+  return {
+    currentUser: null
+  }
+ }
+ */
 
 /*
  *  <UserProvider>
