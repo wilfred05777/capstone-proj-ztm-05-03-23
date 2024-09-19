@@ -29,8 +29,8 @@ export const USER_ACTION_TYPES = {
 
 
 const userReducer = (state, action) => {
-  console.log('dispatch')
-  console.log(action)
+  // console.log('dispatch')
+  // console.log(action)
   const { type, payload } = action;
 
   switch (type) {
@@ -70,8 +70,8 @@ export const UserProvider = ({ children }) => {
   console.log(currentUser)
 
   const setCurrentUser = (user) => {
-    dispatach({ type: "NOT_HANDLED_TYPE", payload: user })
-    // dispatach({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+    // dispatach({ type: "NOT_HANDLED_TYPE", payload: user })
+    dispatach({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
   }
 
 
